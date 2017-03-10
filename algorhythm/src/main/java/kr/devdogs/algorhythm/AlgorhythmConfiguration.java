@@ -23,7 +23,7 @@ public class AlgorhythmConfiguration {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-            	registry.addViewController("/").setViewName(FORWARD_PAGE);
+            		registry.addViewController("/").setViewName(FORWARD_PAGE);
             }
         };
     }
