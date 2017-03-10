@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.devdogs.algorhythm.member.dto.Member;
 import kr.devdogs.algorhythm.member.mapper.MemberMapper;
+import kr.devdogs.algorhythm.utils.encrypt.EncryptFailException;
 import kr.devdogs.algorhythm.utils.encrypt.EncryptUtil;
 
 /**
@@ -24,7 +25,13 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public boolean memberJoin(Member member) {
-		String pw = sha256Util.encoding(member.getPw());
+		String pw = member.getPw();
+		
+		try {
+			pw = sha256Util.encoding(member.getPw());
+		} catch(EncryptFailException e) {
+			logger.error("Password Enctypt Fail - Password : " + pw);
+		}
 		member.setPw(pw);
 		
 		int insertedLine = memberMapper.memberJoin(member);

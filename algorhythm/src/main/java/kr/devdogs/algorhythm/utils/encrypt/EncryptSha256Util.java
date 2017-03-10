@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service("sha256util")
 public class EncryptSha256Util implements EncryptUtil {
-	public String encoding(String str) throws RuntimeException {
+	public String encoding(String str) throws EncryptFailException {
 		String result = "";
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -19,9 +19,9 @@ public class EncryptSha256Util implements EncryptUtil {
 			}
 			result = sb.toString();
 		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
+			throw new EncryptFailException(e);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new EncryptFailException(e);
 		}
 		return result;
 	}
