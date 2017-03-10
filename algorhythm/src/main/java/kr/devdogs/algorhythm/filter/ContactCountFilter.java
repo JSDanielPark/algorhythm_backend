@@ -16,7 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import kr.devdogs.algorhythm.visiter.dto.VisitCount;
-import kr.devdogs.algorhythm.visiter.service.UserService;
+import kr.devdogs.algorhythm.visiter.service.VisitService;
+import kr.devdogs.algorhythm.visiter.service.VisitServiceImpl;
 import kr.devdogs.algorhythm.utils.WebUtils;
 
 /**
@@ -26,7 +27,7 @@ import kr.devdogs.algorhythm.utils.WebUtils;
  */
 @Configuration
 public class ContactCountFilter {
-	@Autowired UserService userService;
+	@Autowired VisitService visitService;
 	
 	@Bean                                                                                         
 	public FilterRegistrationBean filterRegistration(){                                       
@@ -40,7 +41,7 @@ public class ContactCountFilter {
 				if(!"".equals(ip)) {
 					VisitCount info = new VisitCount();
 					info.setIp(ip);
-					userService.addContactLog(info);
+					visitService.addContactLog(info);
 				}
 				chain.doFilter(req, res);
 			}
