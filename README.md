@@ -6,8 +6,8 @@ Algorythm Traning Site "Algo Rhythm"
 
 > URL : http://algo.devdogs.kr
 ####
->Frontend Github URL : https://github.com/JSDanielPark/algorhythm_frontend
->Backend Github URL : https://github.com/JSDanielPark/algorhythm_backend
+> Frontend Github URL : https://github.com/JSDanielPark/algorhythm_frontend
+> Backend Github URL : https://github.com/JSDanielPark/algorhythm_backend
 
 ----------
 
