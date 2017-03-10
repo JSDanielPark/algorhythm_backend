@@ -49,8 +49,8 @@ public class ContactCountFilter {
 			@Override public void init(FilterConfig arg0) throws ServletException {}
 			@Override public void destroy() {}
 		});
-		registrationBean.setEnabled(true);
-		registrationBean.addUrlPatterns("/");
+		//registrationBean.setEnabled(true);
+		//registrationBean.addUrlPatterns("/");
 	    return registrationBean;                                                                  
 	}                                
 }
