@@ -44,14 +44,18 @@ Tech
 > - Maven (Build & Test & Dependency)
 > - Gulp (Build & Dependency)
 > - Git
+  
 ####.
+  
 > **Backend (Restful API Server)**
 
 > - Spring MVC
 > - Spring DI
 > - Spring Security
 > - Mybatis
+  
 ####.
+  
 > **Frontend**
 
 > - React JS
