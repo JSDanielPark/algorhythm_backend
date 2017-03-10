@@ -42,4 +42,10 @@ public class Member {
 	public void setDt(String dt) {
 		this.dt = dt;
 	}
+	@Override
+	public String toString() {
+		return "Member [member_no=" + member_no + ", email=" + email + ", pw=" + pw + ", nickname=" + nickname + ", dt="
+				+ dt + "]";
+	}
+	
 }
