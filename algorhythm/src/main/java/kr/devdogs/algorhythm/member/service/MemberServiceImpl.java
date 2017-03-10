@@ -23,6 +23,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired private EncryptUtil sha256Util;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+
 	@Override
 	public boolean memberJoin(Member member) {
 		String pw = member.getPw();
