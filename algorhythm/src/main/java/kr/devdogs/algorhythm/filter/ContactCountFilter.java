@@ -25,6 +25,7 @@ import kr.devdogs.algorhythm.utils.WebUtils;
  * @author Daniel
  * 방문자수 카운팅을 위한 필터. 로직은 변경이 필요해보인다.
  */
+/*
 @Configuration
 public class ContactCountFilter {
 	@Autowired VisitService visitService;
@@ -54,3 +55,4 @@ public class ContactCountFilter {
 	    return registrationBean;                                                                  
 	}                                
 }
+*/
