@@ -30,6 +30,7 @@ public class MemberController {
 	public static final int CODE_USABLE_EMAIL = 1;
 	public static final int CODE_LOGIN_SUCCESS = 0;
 	public static final int CODE_LOGIN_FAIL = 1;
+	public static final int CODE_LOGOUT_SUCCESS = 1;
 	
 	@Autowired private MemberService memberService;
 	@Autowired private FileUtils fileUtils;
@@ -54,7 +55,7 @@ public class MemberController {
 	} 
 	
 	@RequestMapping(value="/api/member/login", method=RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> login(Member member) {
+	public ResponseEntity<Map<String, Object>> login(Member member, HttpSession session) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
 		if(member.getEmail() == null 
@@ -62,13 +63,24 @@ public class MemberController {
 			res.put("error", "Email, Password is Required");
 			return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
 		}
-		
-		if(memberService.memberLogin(member) == 1) {
+		Member currentMember = memberService.memberLogin(member);
+		if(currentMember != null) {
+			session.setAttribute("email", currentMember.getEmail());
+			session.setAttribute("member_no", currentMember.getMember_no());
+			session.setAttribute("nickname", currentMember.getNickname());
 			res.put("result", CODE_LOGIN_SUCCESS);
 		} else {
 			res.put("result", CODE_LOGIN_FAIL);
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/api/member/logout", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> logout(HttpSession session) {
+		session.removeAttribute("email");
+		session.removeAttribute("member_no");
+		session.removeAttribute("nickname");
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/api/member/Duplicate", method=RequestMethod.GET)

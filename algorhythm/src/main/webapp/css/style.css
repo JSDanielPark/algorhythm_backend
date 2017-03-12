@@ -1,13 +1,13 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 html, body { height: 100%; width: 100%; }
-body { font-family: 'nanumgothic'; }
+body { font-family: 'nanumgothic';  background-color: #f0f0f0; }
 hr { border-color: #F05F40; border-width: 3px; max-width: 50px;}
 hr.light { border-color: white; }
 a { -webkit-transition: all 0.35s; -moz-transition: all 0.35s; transition: all 0.35s; color: #F05F40; }
 a:hover, a:focus { color: #eb3812; }
 p { font-size: 16px; line-height: 1.5; margin-bottom: 20px; }
-section { padding: 100px 0;cmin-height: 100%; }
+section { padding: 100px 0; min-height: 100%; }
 aside { padding: 50px 0; }
 footer { font-size: 14px; margin: 0; padding: 30px 0; font-weight: bold; font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 
@@ -421,3 +421,12 @@ body { overflow-x: hidden; overflow-y: auto; }
 body::-webkit-scrollbar { width: 9px; background-color: transparent; }
 body::-webkit-scrollbar * { background-color: transparent; }
 body::-webkit-scrollbar-thumb { border-radius: 30px; background-color: #ccc !important; }
+
+/* Login */
+section#login { padding-top: 100px; }
+
+/* Join */
+section#join table.use-info-table { margin-top: 40px; }
+section#join table.use-info-table thead th { border: 0; text-align: center; background-color: #F05F40; color: #fff; width: 25px; }
+section#join table.use-info-table tbody th { background-color: #efefef; text-align: center; font-weight: bold; }
+section#join table.use-info-table tbody input[type='checkbox'] { margin-right: 5px; }

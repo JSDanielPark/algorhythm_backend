@@ -45,7 +45,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public int memberLogin(Member member) {
+	public Member memberLogin(Member member) {
 		String pw = member.getPw();
 		
 		try {
@@ -55,13 +55,8 @@ public class MemberServiceImpl implements MemberService{
 		}
 		member.setPw(pw);
 		
-		int SelectLine = memberMapper.memberLogin(member);
-		if(SelectLine == 1) {
-			return 1;
-		} else {
-			logger.error("Member Join Fail : " + member.toString());
-			return 0;
-		}
+		Member currentMember = memberMapper.memberLogin(member);
+		return currentMember;
 	}
 	
 	@Override
