@@ -54,7 +54,7 @@ public class MemberController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	} 
 	
-	@RequestMapping(value="/api/member/login", method=RequestMethod.GET)
+	@RequestMapping(value="/api/member/login", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> login(Member member, HttpSession session) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
