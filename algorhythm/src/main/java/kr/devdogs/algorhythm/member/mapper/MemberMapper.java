@@ -14,8 +14,8 @@ public interface MemberMapper {
 	public int memberJoin(Member member);
 	
 	//로그인
-	@Select("SELECT count(*) FROM member where email = #{email} AND #{pw}")	
-	public int memberLogin(Member member);
+	@Select("SELECT member_no, email, nickname FROM member where email = #{email} AND pw=#{pw}")	
+	public Member memberLogin(Member member);
 	
 	//중복체크
 	@Select("SELECT email FROM member where email = #{email}")	

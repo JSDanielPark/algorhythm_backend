@@ -24,6 +24,8 @@ public class AlgorhythmConfiguration {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
             		registry.addViewController("/").setViewName(FORWARD_PAGE);
+            		registry.addViewController("/loginForm").setViewName(FORWARD_PAGE);
+            		registry.addViewController("/join").setViewName(FORWARD_PAGE);
             }
         };
     }
