@@ -43,4 +43,39 @@ public class MemberServiceImpl implements MemberService{
 			return false;
 		}
 	}
+	
+	@Override
+	public int memberLogin(Member member) {
+		String pw = member.getPw();
+		
+		try {
+			pw = sha256Util.encoding(member.getPw());
+		} catch(EncryptFailException e) {
+			logger.error("Password Enctypt Fail - Password : " + pw);
+		}
+		member.setPw(pw);
+		
+		int SelectLine = memberMapper.memberLogin(member);
+		if(SelectLine == 1) {
+			return 1;
+		} else {
+			logger.error("Member Join Fail : " + member.toString());
+			return 0;
+		}
+	}
+	
+	@Override
+	public boolean memberDuplicate(Member member) {
+		String email = member.getEmail();
+		
+		member.setEmail(email);
+		
+		String SelectString = memberMapper.memberDuplicate(member);
+		
+		if(SelectString == null){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }

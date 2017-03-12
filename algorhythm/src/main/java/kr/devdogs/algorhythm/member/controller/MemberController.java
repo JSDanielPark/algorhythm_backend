@@ -26,6 +26,11 @@ import kr.devdogs.algorhythm.utils.FileUtils;
  */
 @RestController
 public class MemberController {
+	public static final int CODE_DUPLECATE_EMAIL = 0;
+	public static final int CODE_USABLE_EMAIL = 1;
+	public static final int CODE_LOGIN_SUCCESS = 0;
+	public static final int CODE_LOGIN_FAIL = 1;
+	
 	@Autowired private MemberService memberService;
 	@Autowired private FileUtils fileUtils;
 	
@@ -47,4 +52,39 @@ public class MemberController {
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	} 
+	
+	@RequestMapping(value="/api/member/login", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> login(Member member) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		
+		if(member.getEmail() == null 
+				|| member.getPw() == null) {
+			res.put("error", "Email, Password is Required");
+			return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+		}
+		
+		if(memberService.memberLogin(member) == 1) {
+			res.put("result", CODE_LOGIN_SUCCESS);
+		} else {
+			res.put("result", CODE_LOGIN_FAIL);
+		}
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/api/member/Duplicate", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> duplicate(Member member) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		
+		if(member.getEmail() == null) {
+			res.put("error", "Email is Required");
+			return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+		}
+		
+		if(memberService.memberDuplicate(member)) {
+			res.put("result", CODE_DUPLECATE_EMAIL);
+		} else {
+			res.put("result", CODE_USABLE_EMAIL);
+		}
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 }
