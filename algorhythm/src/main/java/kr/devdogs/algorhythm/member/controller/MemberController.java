@@ -26,14 +26,18 @@ import kr.devdogs.algorhythm.utils.FileUtils;
  */
 @RestController
 public class MemberController {
+	public static final String CODE_JOIN_SUCCESS = "success";
+	public static final String CODE_JOIN_FAIL = "fail";
+	
 	public static final int CODE_DUPLECATE_EMAIL = 0;
 	public static final int CODE_USABLE_EMAIL = 1;
+	
 	public static final int CODE_LOGIN_SUCCESS = 0;
 	public static final int CODE_LOGIN_FAIL = 1;
-	public static final int CODE_LOGOUT_SUCCESS = 1;
 	
 	@Autowired private MemberService memberService;
 	@Autowired private FileUtils fileUtils;
+	
 	
 	@RequestMapping(value="/api/member/join", method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getSample(Member member) {
@@ -47,12 +51,28 @@ public class MemberController {
 		}
 		
 		if(memberService.memberJoin(member)) {
-			res.put("result", "success");
+			res.put("result", CODE_JOIN_SUCCESS);
 		} else {
-			res.put("result", "fail");
+			res.put("result", CODE_JOIN_FAIL);
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	} 
+	
+	
+	@RequestMapping(value="/api/member/check/login", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> isLogin(HttpSession session) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		
+		if(session.getAttribute(Member.SESSION_KEY_EMAIL) != null) {
+			res.put("isLogin", "yes");
+			res.put("email", session.getAttribute(Member.SESSION_KEY_EMAIL));
+			res.put("nickname", session.getAttribute(Member.SESSION_KEY_NICKNAME));
+		} else {
+			res.put("isLogin", "no");
+		}
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
 	
 	@RequestMapping(value="/api/member/login", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> login(Member member, HttpSession session) {
@@ -65,25 +85,29 @@ public class MemberController {
 		}
 		Member currentMember = memberService.memberLogin(member);
 		if(currentMember != null) {
-			session.setAttribute("email", currentMember.getEmail());
-			session.setAttribute("member_no", currentMember.getMember_no());
-			session.setAttribute("nickname", currentMember.getNickname());
+			session.setAttribute(Member.SESSION_KEY_EMAIL, currentMember.getEmail());
+			session.setAttribute(Member.SESSION_KEY_NO, currentMember.getMember_no());
+			session.setAttribute(Member.SESSION_KEY_NICKNAME, currentMember.getNickname());
 			res.put("result", CODE_LOGIN_SUCCESS);
+			res.put("nickname", currentMember.getNickname());
+			res.put("email", currentMember.getEmail());
 		} else {
 			res.put("result", CODE_LOGIN_FAIL);
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
+	
+	
 	@RequestMapping(value="/api/member/logout", method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> logout(HttpSession session) {
-		session.removeAttribute("email");
-		session.removeAttribute("member_no");
-		session.removeAttribute("nickname");
+		session.removeAttribute(Member.SESSION_KEY_EMAIL);
+		session.removeAttribute(Member.SESSION_KEY_NO);
+		session.removeAttribute(Member.SESSION_KEY_NICKNAME);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/api/member/Duplicate", method=RequestMethod.GET)
+	@RequestMapping(value="/api/member/check/id", method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> duplicate(Member member) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
@@ -100,6 +124,7 @@ public class MemberController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping(value="/api/member/newPassword", method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> PasswordUpdate(Member member, 
 												@RequestParam(name="newPw", required=true)String newPw, 
@@ -110,13 +135,11 @@ public class MemberController {
 		if(member.getPw() == null){
 			res.put("error", "값을 입력하세요");
 		}else {
-			String email = String.valueOf(session.getAttribute("email"));
+			String email = String.valueOf(session.getAttribute(Member.SESSION_KEY_EMAIL));
 			member.setEmail(email);
 			memberService.memberPasswordUpdate(member, newPw);
 			res.put("result", "hi");
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
-		
-		
 	}
 }

@@ -7,6 +7,10 @@ package kr.devdogs.algorhythm.member.dto;
  * 
  */
 public class Member {
+	public static final String SESSION_KEY_EMAIL = "EMAIL";
+	public static final String SESSION_KEY_NICKNAME = "NICKNAME";
+	public static final String SESSION_KEY_NO = "MEMBER_NO";
+	
 	private int member_no;
 	private String email;
 	private String pw;
