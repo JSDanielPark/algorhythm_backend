@@ -47,4 +47,6 @@ public class MemberController {
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	//난 박영환이다 
 }
