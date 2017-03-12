@@ -46,7 +46,5 @@ public class MemberController {
 			res.put("result", "fail");
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
-	}
-	
-	//난 박영환이다 
+	} 
 }
