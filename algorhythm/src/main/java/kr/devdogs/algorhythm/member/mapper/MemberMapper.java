@@ -4,6 +4,7 @@ package kr.devdogs.algorhythm.member.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import kr.devdogs.algorhythm.member.dto.Member;
 
@@ -20,4 +21,13 @@ public interface MemberMapper {
 	//중복체크
 	@Select("SELECT email FROM member where email = #{email}")	
 	public String memberDuplicate(Member member);
+	
+	//pw가져오기 
+	@Select("SELECT pw From member where email = #{email}")
+	public String getMemberPassword(Member member);
+	
+	//비밀번호 변경
+	@Update("UPDATE member SET pw = #{pw} where email = #{email}")
+	public String memberPasswordUpdate(Member pw);
+	
 }

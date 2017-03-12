@@ -87,4 +87,24 @@ public class MemberController {
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/api/member/newPassword", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> PasswordUpdate(Member member, 
+												@RequestParam(name="newPw", required=true)String newPw, 
+												HttpSession session) {
+		
+		Map<String, Object> res = new HashMap<String, Object>();
+		
+		if(member.getPw() == null){
+			res.put("error", "값을 입력하세요");
+		}else {
+			String email = String.valueOf(session.getAttribute("email"));
+			member.setEmail(email);
+			memberService.memberPasswordUpdate(member, newPw);
+			res.put("result", "hi");
+		}
+		return new ResponseEntity<>(res, HttpStatus.OK);
+		
+		
+	}
 }

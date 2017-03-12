@@ -78,4 +78,31 @@ public class MemberServiceImpl implements MemberService{
 			return true;
 		}
 	}
+
+	@Override
+	public boolean memberPasswordUpdate(Member member, String newPw) {
+		String password = null;
+		try {
+			 password = sha256Util.encoding(member.getPw());
+			 newPw = sha256Util.encoding(newPw);
+		} catch(EncryptFailException e) {
+			logger.error("Password Enctypt Fail - Password : " + password);
+		}
+		
+		member.setPw(password);
+		Member newMemberInfo = new Member();
+		newMemberInfo.setPw(newPw);
+
+		System.out.println(member.getEmail());
+		String originPw = memberMapper.getMemberPassword(member);
+		
+		System.out.println(originPw);
+		System.out.println(password);
+		if(password.equals(originPw)){
+			memberMapper.memberPasswordUpdate(newMemberInfo);
+			return true;
+		}else
+			return false;
+	}
+
 }

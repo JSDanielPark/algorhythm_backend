@@ -10,4 +10,7 @@ public interface MemberService {
 	public int memberLogin(Member member);
 	
 	public boolean memberDuplicate(Member member);
+	
+	public boolean memberPasswordUpdate(Member member, String newPw);
+	
 }
