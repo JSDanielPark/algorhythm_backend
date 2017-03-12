@@ -27,7 +27,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public boolean memberJoin(Member member) {
 		String pw = member.getPw();
-		
 		try {
 			pw = sha256Util.encoding(member.getPw());
 		} catch(EncryptFailException e) {
@@ -60,12 +59,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public boolean memberDuplicate(Member member) {
+	public boolean isEmailDuplicate(Member member) {
 		String email = member.getEmail();
 		
 		member.setEmail(email);
 		
-		String SelectString = memberMapper.memberDuplicate(member);
+		String SelectString = memberMapper.emailDuplicate(member);
 		
 		if(SelectString == null){
 			return false;

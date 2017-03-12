@@ -1,6 +1,7 @@
 package kr.devdogs.algorhythm.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.devdogs.algorhythm.member.dto.Member;
 
@@ -9,7 +10,7 @@ public interface MemberService {
 	
 	public Member memberLogin(Member member);
 	
-	public boolean memberDuplicate(Member member);
+	public boolean isEmailDuplicate(Member member);
 	
 	public boolean memberPasswordUpdate(Member member, String newPw);
 	

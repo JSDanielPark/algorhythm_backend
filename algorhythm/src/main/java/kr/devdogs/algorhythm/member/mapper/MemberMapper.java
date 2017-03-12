@@ -20,7 +20,7 @@ public interface MemberMapper {
 	
 	//중복체크
 	@Select("SELECT email FROM member where email = #{email}")	
-	public String memberDuplicate(Member member);
+	public String emailDuplicate(Member member);
 	
 	//pw가져오기 
 	@Select("SELECT pw From member where email = #{email}")

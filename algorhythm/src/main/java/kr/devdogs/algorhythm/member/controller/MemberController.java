@@ -28,9 +28,9 @@ import kr.devdogs.algorhythm.utils.FileUtils;
 public class MemberController {
 	public static final String CODE_JOIN_SUCCESS = "success";
 	public static final String CODE_JOIN_FAIL = "fail";
-	
-	public static final int CODE_DUPLECATE_EMAIL = 0;
-	public static final int CODE_USABLE_EMAIL = 1;
+
+	public static final int CODE_USABLE_EMAIL = 0;
+	public static final int CODE_DUPLECATE_EMAIL = 1;
 	
 	public static final int CODE_LOGIN_SUCCESS = 0;
 	public static final int CODE_LOGIN_FAIL = 1;
@@ -39,7 +39,7 @@ public class MemberController {
 	@Autowired private FileUtils fileUtils;
 	
 	
-	@RequestMapping(value="/api/member/join", method=RequestMethod.GET)
+	@RequestMapping(value="/api/member/join", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> getSample(Member member) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
@@ -50,11 +50,19 @@ public class MemberController {
 			return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
 		}
 		
+		if(memberService.isEmailDuplicate(member)) {
+			res.put("result", CODE_JOIN_FAIL);
+			res.put("errMsg", "이메일이 중복됩니다.");
+			return new ResponseEntity<>(res, HttpStatus.OK);
+		}
+		
 		if(memberService.memberJoin(member)) {
 			res.put("result", CODE_JOIN_SUCCESS);
 		} else {
 			res.put("result", CODE_JOIN_FAIL);
+			res.put("errMsg", "Unknown Error");
 		}
+		
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	} 
 	
@@ -116,7 +124,7 @@ public class MemberController {
 			return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
 		}
 		
-		if(memberService.memberDuplicate(member)) {
+		if(memberService.isEmailDuplicate(member)) {
 			res.put("result", CODE_DUPLECATE_EMAIL);
 		} else {
 			res.put("result", CODE_USABLE_EMAIL);
