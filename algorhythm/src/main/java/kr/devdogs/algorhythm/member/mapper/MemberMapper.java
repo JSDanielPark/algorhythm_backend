@@ -28,6 +28,8 @@ public interface MemberMapper {
 	
 	//비밀번호 변경
 	@Update("UPDATE member SET pw = #{pw} where email = #{email}")
-	public String memberPasswordUpdate(Member pw);
+	public int memberPasswordUpdate(Member pw);
 	
+	@Select("SELECT email, nickname FROM member WHERE member_no=#{value}")
+	public Member getMemberFromNo(int memberNo);
 }

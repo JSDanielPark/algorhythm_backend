@@ -7,11 +7,8 @@ import kr.devdogs.algorhythm.member.dto.Member;
 
 public interface MemberService {
 	public boolean memberJoin(Member member);
-	
 	public Member memberLogin(Member member);
-	
+	public Member getMemberFromNo(int no);
 	public boolean isEmailDuplicate(Member member);
-	
 	public boolean memberPasswordUpdate(Member member, String newPw);
-	
 }

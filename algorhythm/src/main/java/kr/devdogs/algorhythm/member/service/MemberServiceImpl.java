@@ -85,18 +85,19 @@ public class MemberServiceImpl implements MemberService{
 		
 		member.setPw(password);
 		Member newMemberInfo = new Member();
+		newMemberInfo.setEmail(member.getEmail());
 		newMemberInfo.setPw(newPw);
-
-		System.out.println(member.getEmail());
+		
 		String originPw = memberMapper.getMemberPassword(member);
 		
-		System.out.println(originPw);
-		System.out.println(password);
-		if(password.equals(originPw)){
-			memberMapper.memberPasswordUpdate(newMemberInfo);
+		if(password.equals(originPw)
+				&& memberMapper.memberPasswordUpdate(newMemberInfo) == 1){
 			return true;
-		}else
+		} else
 			return false;
 	}
 
+	public Member getMemberFromNo(int memberNo) {
+		return memberMapper.getMemberFromNo(memberNo);
+	}
 }

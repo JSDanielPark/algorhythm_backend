@@ -105,7 +105,26 @@ public class MemberController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
-	
+	@RequestMapping(value="/api/member/myinfo", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getMyInfo(HttpSession session) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		
+		String memberNo = String.valueOf(session.getAttribute(Member.SESSION_KEY_NO));
+		if(memberNo == null) {
+			res.put("error", "로그인을 하셔야합니다.");
+			return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+		}
+		
+		Member currentMember = memberService
+				.getMemberFromNo(Integer.parseInt(memberNo));
+		if(currentMember == null) {
+			res.put("result", "error");
+		} else {
+			res.put("result", "success");
+			res.put("info", currentMember);
+		}
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 	
 	@RequestMapping(value="/api/member/logout", method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> logout(HttpSession session) {
@@ -133,7 +152,7 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value="/api/member/newPassword", method=RequestMethod.GET)
+	@RequestMapping(value="/api/member/modifyMyinfo", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> PasswordUpdate(Member member, 
 												@RequestParam(name="newPw", required=true)String newPw, 
 												HttpSession session) {
@@ -142,11 +161,11 @@ public class MemberController {
 		
 		if(member.getPw() == null){
 			res.put("error", "값을 입력하세요");
-		}else {
+		} else {
 			String email = String.valueOf(session.getAttribute(Member.SESSION_KEY_EMAIL));
 			member.setEmail(email);
 			memberService.memberPasswordUpdate(member, newPw);
-			res.put("result", "hi");
+			res.put("result", "success");
 		}
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
