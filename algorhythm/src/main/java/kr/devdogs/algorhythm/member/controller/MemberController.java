@@ -110,7 +110,7 @@ public class MemberController {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
 		String memberNo = String.valueOf(session.getAttribute(Member.SESSION_KEY_NO));
-		if(memberNo == null) {
+		if(memberNo == null || "null".equals(memberNo)) {
 			res.put("error", "로그인을 하셔야합니다.");
 			return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
 		}
