@@ -79,6 +79,13 @@
 		    <artifactId>mariadb-java-client</artifactId>
 		    <version>1.5.8</version>
 		</dependency>
+		
+		<!-- langexec -->
+		<dependency>
+		    <groupId>kr.devdogs</groupId>
+		    <artifactId>langexec</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
