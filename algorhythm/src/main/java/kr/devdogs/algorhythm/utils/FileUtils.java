@@ -1,10 +1,12 @@
 package kr.devdogs.algorhythm.utils;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import javax.servlet.ServletContext;
 
@@ -49,5 +51,34 @@ public class FileUtils {
 			return null;
 		}
 		return relPath + fileName;
+	}
+	
+	
+	public String writeFile(final String writeString, final String plusPath, final String fileName) {
+		String relPath = new StringBuilder("/upload/")
+				.append(plusPath == null ? "" : plusPath).toString();
+		String filePath = servletContext.getRealPath("/resources" + relPath);
+		File upDirectory = new File(filePath);
+		if (!upDirectory.exists()) {
+			upDirectory.mkdirs();
+		}
+
+
+		filePath += fileName;
+
+		final File uploadFile = new File(filePath);
+		if (uploadFile.exists()) {
+			uploadFile.delete();
+		}
+		
+		try(BufferedWriter writer = new BufferedWriter(
+				new OutputStreamWriter(new FileOutputStream(uploadFile)));) {
+			writer.write(writeString);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return filePath;
 	}
 }

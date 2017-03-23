@@ -42,7 +42,7 @@ public class MemberController {
 	@RequestMapping(value="/api/member/join", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> getSample(Member member) {
 		Map<String, Object> res = new HashMap<String, Object>();
-		
+
 		if(member.getEmail() == null 
 				|| member.getPw() == null 
 				|| member.getNickname() == null) {

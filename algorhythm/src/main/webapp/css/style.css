@@ -384,6 +384,11 @@ border-radius: 5px; margin-bottom: 7px; display: inline-block; }
 .tag-full { padding: 3px 10px; font-size: 15px;	background-color: #fcfcfc;	color: #223; border: 1px solid #ddd; 
 border-radius: 5px; margin-bottom: 5px; display: block; width: 100%; }
 
+
+.text-left { text-align: left !important; }
+.form-group-big { border-top: 1px solid #e0e0e0; padding-top: 15px; margin-top: 15px; padding-bottom: 10px;}
+
+
 section { background-color: #fafafa; }
 .logo { position: absolute; top: 3px;  width: 45px; }
 
@@ -432,3 +437,16 @@ section#join table.use-info-table thead th { border: 0; text-align: center; back
 section#join table.use-info-table tbody th { background-color: #efefef; text-align: center; font-weight: bold; }
 section#join table.use-info-table tbody input[type='checkbox'] { margin-right: 5px; }
 section#join .msg-warning { display: block; padding-top: 2px; margin-left: 10px; color: #f00; font-size: 13px;}
+@media (min-width: 768px) {
+	.section-heading-sm { font-size: 30px; }
+	.section-heading-very-sm  { font-size: 20px; margin-bottom: 30px;}
+}
+
+.CodeMirror { border: 3px solid #aaa; font-size: 20px; min-height: 500px; margin-top: 20px; margin-bottom: 20px;}
+.section-heading-comment { font-size: 30px; }
+
+.exam-content { margin-top: 20px; }
+.exam-label { font-weight: bold; font-size: 15px; margin-top: 15px; }
+.plusinfo { color: #c00; margin-left: 15px; }
+.exam-test-area {  margin-top: 20px; padding-top: 7px; padding-bottom: 7px;  }
+.exam-test-area>p { margin-bottom: 5px; font-weight: bold; font-size: 20px; }
