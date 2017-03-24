@@ -31,6 +31,8 @@ public class AlgorhythmConfiguration {
             		registry.addViewController("/exam/view/**").setViewName(FORWARD_PAGE);
             		registry.addViewController("/exam/list**").setViewName(FORWARD_PAGE);
             		registry.addViewController("/exam/write").setViewName(FORWARD_PAGE);
+            		registry.addViewController("/exam/rank").setViewName(FORWARD_PAGE);
+            		registry.addViewController("/exam/my").setViewName(FORWARD_PAGE);
             }
         };
     }

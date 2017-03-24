@@ -448,5 +448,11 @@ section#join .msg-warning { display: block; padding-top: 2px; margin-left: 10px;
 .exam-content { margin-top: 20px; }
 .exam-label { font-weight: bold; font-size: 15px; margin-top: 15px; }
 .plusinfo { color: #c00; margin-left: 15px; }
+.plusinfo-horizontal { color: #c00; margin-bottom: 10px; }
 .exam-test-area {  margin-top: 20px; padding-top: 7px; padding-bottom: 7px;  }
 .exam-test-area>p { margin-bottom: 5px; font-weight: bold; font-size: 20px; }
+
+section#examView button:first-child{ margin-right: 10px; }
+
+section#examRank table { margin-top: 40px; }
+section#examRank table th { text-align: center !important; font-weight: bold; background-color: #eee; }

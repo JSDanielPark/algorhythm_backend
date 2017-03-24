@@ -48,17 +48,36 @@ public class ExamController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	} 
 	
-	@RequestMapping(value="/api/exam/submit", method=RequestMethod.POST)
+	@RequestMapping(value="/api/exam/run", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> run(
-			@RequestParam(name="source", required=true) String source,
-			@RequestParam(name="examNo", required=true) Integer examNo, HttpSession session) {
+			@RequestParam(name="source", required=true) String source, HttpSession session) {
+		Map<String, Object> res = new HashMap<String, Object>();
 		
 		String username = String.valueOf(session.getAttribute(Member.SESSION_KEY_NICKNAME));
-		Map<String, Object> res = new HashMap<String, Object>();
 		String result = examService.runSource(source, username);
 		res.put("result", result);
 		
 		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/api/exam/submit", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> submit(
+			@RequestParam(name="source", required=true) String source,
+			@RequestParam(name="examNo", required=true) Integer examNo, HttpSession session) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		
+		String username = String.valueOf(session.getAttribute(Member.SESSION_KEY_NICKNAME));
+		int userNo = (Integer)session.getAttribute(Member.SESSION_KEY_NO);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("username", username);
+		param.put("userNo", userNo);
+		param.put("examNo", examNo);
+		
+		Map<String, Object> result = examService.scoring(source, param);
+		res.put("result", result);
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	} 
 	
 	
@@ -129,4 +148,29 @@ public class ExamController {
 		
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	} 
+	
+	@RequestMapping(value="/api/exam/rank", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> rank(){
+		Map<String, Object> res = new HashMap<String, Object>();
+		res.put("rank", examService.getRank());
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/api/exam/my", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getMyExam(
+			HttpSession session,
+			@RequestParam(name="page", required=false, defaultValue="1") int page
+			){
+		Map<String, Object> res = new HashMap<String, Object>();
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		int userNo = (Integer)session.getAttribute(Member.SESSION_KEY_NO);
+		param.put("member_no", userNo);
+		page = page == 0 ? 1 : page;
+		param.put("page", page);
+		
+		res.put("list", examService.getMyExam(param));
+		res.put("maxPage", examService.getMyExamMaxPage(param));
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 }
