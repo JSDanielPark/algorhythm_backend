@@ -57,7 +57,7 @@ public class ExamServiceImpl implements ExamService {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
 		try{
-			result = RunnerFactory.getJavaExecutor().run(input, inputs);
+			result = RunnerFactory.getJavaRunner().run(input, inputs);
 			int caseIdx = 0;
 			
 			// 채점 
@@ -111,7 +111,7 @@ public class ExamServiceImpl implements ExamService {
 			}
 			
 			File input = new File(uploadedPath);
-			List<String> result = RunnerFactory.getJavaExecutor().run(input, inputs);
+			List<String> result = RunnerFactory.getJavaRunner().run(input, inputs);
 			String[] arr = result.stream().toArray(String[]::new);
 			String outputResult = StringUtils.join(arr, "\n");
 			return outputResult;

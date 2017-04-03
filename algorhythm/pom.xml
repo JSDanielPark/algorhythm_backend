@@ -85,6 +85,12 @@
 		  <version>3.5</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>info.debatty</groupId>
+		    <artifactId>java-string-similarity</artifactId>
+		    <version>RELEASE</version>
+		</dependency>
+		
 		<!-- langexec -->
 		<dependency>
 		    <groupId>kr.devdogs</groupId>
