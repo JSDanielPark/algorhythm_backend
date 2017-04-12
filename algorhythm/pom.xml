@@ -95,7 +95,7 @@
 		<dependency>
 		    <groupId>kr.devdogs</groupId>
 		    <artifactId>langexec</artifactId>
-		    <version>0.1</version>
+		    <version>0.11</version>
 		</dependency>
 	</dependencies>
 
