@@ -75,6 +75,29 @@ public class TournaServiceImpl implements TournaService {
 		
 		return tournaMapper.list(params);
 	}
+	
+	public List<Map<String, Object>> getTournaDetail(int page, String subject, String difficulty){
+		page = (page-1)*PAGE_COUNT;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("start", page);
+		params.put("end", PAGE_COUNT);
+			
+		if(subject != null) 
+			params.put("subject", subject);
+		else
+			params.put("subject", "");
+		
+		if(difficulty != null) 
+			params.put("difficulty", difficulty);
+		else 
+			params.put("difficulty", "");
+		
+		System.out.println(tournaMapper.detail(params));
+		
+		System.out.println(params);
+		
+		return tournaMapper.list(params);
+	}
 
 	public int getMaxPage(String subject, String difficulty){
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -89,5 +112,33 @@ public class TournaServiceImpl implements TournaService {
 		else 
 			params.put("difficulty", "");
 		return tournaMapper.count(params) / PAGE_COUNT + 1;
+	}
+	
+	@Override
+	public int writeTourna(Map<String, Object> param, List<Map<String, String>> testcase) {
+		int insertedCount =tournaMapper.writeExam(param);
+		
+		if(insertedCount != 0) {
+			int insertedNo = tournaMapper.getMaxNo();
+			int insertedCaseCount = 0;
+			for(int i=0; i<testcase.size(); i++) {
+				Map<String, String> casePair = testcase.get(i);
+				casePair.put("exam_no", String.valueOf(insertedNo));
+				insertedCaseCount += tournaMapper.writeTestcase(casePair);
+			}
+			return insertedCaseCount;
+		}
+		return 0;
+	}
+	
+	@Override
+	public int addTourna(Map<String, Object> param) {
+		int insertedCount =tournaMapper.addTourna(param);
+		int getMaxNo = tournaMapper.getTournaMaxNo();
+		if(insertedCount != 0) {
+			int insertedNo = tournaMapper.getMaxNo();
+			return insertedNo;
+		}
+		return 0;
 	}
 }

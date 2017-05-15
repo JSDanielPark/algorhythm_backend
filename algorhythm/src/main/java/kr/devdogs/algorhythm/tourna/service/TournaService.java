@@ -8,5 +8,11 @@ public interface TournaService {
 
 	public List<Map<String, Object>> getTournaList(int page, String subject, String difficulty);
 
+	public List<Map<String, Object>> getTournaDetail(int page, String subject, String difficulty);
+	
 	public int getMaxPage(String subject, String difficulty);
+	
+	public int writeTourna(Map<String, Object> param, List<Map<String,String>> testcase);
+	
+	public int addTourna(Map<String, Object> param);
 }
