@@ -50,15 +50,14 @@ public class TournaController {
 	@RequestMapping(value="/api/tourna/list/{page}", method=RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> list(
 			@PathVariable(value="page", required=false) int page,
-			@RequestParam(name="subject", required=false) String subject,
-			@RequestParam(name="difficulty", required=false) String difficulty) {
+			@RequestParam(name="title", required=false) String title) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
 		if(page == 0)
 			page = 1;
 		
-		List<Map<String, Object>> tournaList = tournaService.getTournaList(page, subject, difficulty);
-		int maxPageCount = tournaService.getMaxPage(subject, difficulty);
+		List<Map<String, Object>> tournaList = tournaService.getTournaList(page, title);
+		int maxPageCount = tournaService.getMaxPage_List(title);
 		
 		res.put("list",tournaList);
 		res.put("maxPage", maxPageCount);
@@ -70,15 +69,15 @@ public class TournaController {
 	public ResponseEntity<Map<String, Object>> detail(
 			@PathVariable(value="page", required=false) int page,
 			@PathVariable(value="tourna_no", required=false) int tourna_no,
-			@RequestParam(name="subject", required=false) String subject,
+			@RequestParam(name="title", required=false) String title,
 			@RequestParam(name="difficulty", required=false) String difficulty) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
 		if(page == 0)
 			page = 1;
 		
-		List<Map<String, Object>> tournaDetail = tournaService.getTournaDetail(page, subject, difficulty);
-		int maxPageCount = tournaService.getMaxPage(subject, difficulty);
+		List<Map<String, Object>> tournaDetail = tournaService.getTournaDetail(page, title, difficulty, tourna_no);
+		int maxPageCount = tournaService.getMaxPage(title, difficulty);
 		
 		res.put("detail",tournaDetail);
 		res.put("maxPage", maxPageCount);
@@ -88,7 +87,8 @@ public class TournaController {
 	
 	@RequestMapping(value="/api/tourna/write", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> write(
-			@RequestParam(name="subject", required=true) String subject,
+			@RequestParam(name="tourna_no", required=true) String[] tourna_no,
+			@RequestParam(name="title", required=true) String title,
 			@RequestParam(name="difficulty", required=true) Integer difficulty,
 			@RequestParam(name="content", required=true) String content,
 			@RequestParam(name="test_input", required=true) String test_input,
@@ -100,7 +100,8 @@ public class TournaController {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("writer", String.valueOf(session.getAttribute(Member.SESSION_KEY_NO)));
-		param.put("subject", subject);
+		param.put("tourna_no", tourna_no);
+		param.put("title", title);
 		param.put("content", content);
 		param.put("test_input", test_input);
 		param.put("test_output", test_output);
@@ -124,17 +125,14 @@ public class TournaController {
 	
 	@RequestMapping(value="/api/tourna/addtourna", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> addtourna(
-			@RequestParam(name="subject", required=true) String subject,
-			@RequestParam(name="class_Nm", required=true) String class_Nm,
+			@RequestParam(name="title", required=true) String title,
 			@RequestParam(name="content", required=true) String content,
 			HttpSession session) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("writer", String.valueOf(session.getAttribute(Member.SESSION_KEY_NO)));
-		param.put("subject", subject);
-		param.put("content", content);
-		param.put("class_Nm", class_Nm);
+		param.put("title", title);
 		
 		int result = tournaService.addTourna(param);
 		res.put("result", result);
