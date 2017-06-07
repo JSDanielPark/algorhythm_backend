@@ -36,7 +36,7 @@ public class TournaServiceImpl implements TournaService {
 	@Override
 	public String getCompileLog(String source, String username) {
 		String uploadedPath = fileUtils.writeFile(source, "/"+username+"/", "Solution.java");
-		
+
 		File input = new File(uploadedPath);
 		List<String> result = null;
 		String resultString = "";

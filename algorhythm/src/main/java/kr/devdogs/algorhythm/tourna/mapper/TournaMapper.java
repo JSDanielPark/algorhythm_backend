@@ -24,7 +24,7 @@ public interface TournaMapper {
 	@Select("SELECT count(*) FROM Tourna_List")
 	public int count_List(Map<String, Object> param);
 	
-	@Insert("INSERT INTO tourna_testcase(tourna_no, input, output) "
+	@Insert("INSERT INTO Tourna_Testcase(tourna_no, input, output) "
 			+ "VALUES(#{tourna_no}, #{input}, #{output})")
 	public int writeTestcase(Map<String, String> param);
 	
@@ -34,10 +34,10 @@ public interface TournaMapper {
 	public int writeTourna(Map<String, Object> param);
 	
 	@Insert("insert into Tourna_List(Title,Writer,Reg_Date) "
-			+ "VALUES(#{subject}, #{writer}, now())")
+			+ "VALUES(#{title}, #{writer}, now())")
 	public int addTourna(Map<String, Object> param);
 
-	@Select("SELECT max(tourna_no) FROM tourna_list")
+	@Select("SELECT max(tourna_no) FROM Tourna_List")
 	public int getTournaMaxNo();
 	
 }

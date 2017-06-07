@@ -126,7 +126,6 @@ public class TournaController {
 	@RequestMapping(value="/api/tourna/addtourna", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> addtourna(
 			@RequestParam(name="title", required=true) String title,
-			@RequestParam(name="content", required=true) String content,
 			HttpSession session) {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
