@@ -28,8 +28,8 @@ public interface TournaMapper {
 			+ "VALUES(#{tourna_no}, #{input}, #{output})")
 	public int writeTestcase(Map<String, String> param);
 	
-	@Insert("insert into Tourna_Detail_List(Tourna_No, Title, Difficult, Content, Reg_Date, Test_Input, Test_Output, Writer) "
-			+ "VALUES(#{tourna_no}, #{subject}, #{difficulty}, #{content}, now(), #{test_input}, #{test_output}, #{writer})")
+	@Insert("insert into Tourna_Detail_List(Title, Difficult, Content, Reg_Date, Test_Input, Test_Output, Writer) "
+			+ "VALUES(#{title}, #{difficulty}, #{content}, now(), #{test_input}, #{test_output}, #{writer})")
 	@Options(useGeneratedKeys=true, keyColumn="tourna_no", keyProperty="tourna_no")
 	public int writeTourna(Map<String, Object> param);
 	

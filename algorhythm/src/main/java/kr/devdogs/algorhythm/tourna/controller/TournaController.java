@@ -87,7 +87,6 @@ public class TournaController {
 	
 	@RequestMapping(value="/api/tourna/write", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> write(
-			@RequestParam(name="tourna_no", required=true) String[] tourna_no,
 			@RequestParam(name="title", required=true) String title,
 			@RequestParam(name="difficulty", required=true) Integer difficulty,
 			@RequestParam(name="content", required=true) String content,
@@ -100,7 +99,6 @@ public class TournaController {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("writer", String.valueOf(session.getAttribute(Member.SESSION_KEY_NO)));
-		param.put("tourna_no", tourna_no);
 		param.put("title", title);
 		param.put("content", content);
 		param.put("test_input", test_input);
