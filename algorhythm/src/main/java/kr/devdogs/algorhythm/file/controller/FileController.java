@@ -25,7 +25,6 @@ public class FileController {
 	public @ResponseBody String photoUpload(@RequestParam("upload") MultipartFile photo, 
 			@RequestParam(name="CKEditorFuncNum", required=true) String key,
 			HttpSession session, HttpServletResponse response) {
-		
 		String uploadedPath = fileService.uploadPhoto(photo);
 		response.setContentType("text/html");
 	    response.setCharacterEncoding("UTF-8");

@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import kr.devdogs.algorhythm.exam.mapper.ExamMapper;
 import kr.devdogs.algorhythm.utils.FileUtils;
 import kr.devdogs.langexec.CompilerFactory;
+import kr.devdogs.langexec.LanguageRunner;
 import kr.devdogs.langexec.RunnerFactory;
+import kr.devdogs.langexec.core.event.ProcessEventListener;
 import kr.devdogs.langexec.core.exception.CompileFailException;
 
 @Service("examService")
@@ -54,6 +56,7 @@ public class ExamServiceImpl implements ExamService {
 		Map<String, Object> res = new HashMap<String, Object>();
 		
 		try{
+			LanguageRunner runner = RunnerFactory.getJavaRunner(input);
 			result = RunnerFactory.getJavaRunner(input).run(inputs).getOutputLines();
 			int caseIdx = 0;
 			
